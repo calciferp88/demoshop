@@ -10,171 +10,196 @@ export default function pay() {
     const [ add, setAdd ] = useState('');
 
     const paynow = () => {
-        
-        // const items = [{
-        //     name: "Nike Air Jordan",
-        //     amount: 110,
-        //     quantity: 2
-        // }]
 
-        // const data = {     
-        //     clientId:"c2464698-5f1f-3f9e-b78e-e0c81f59dfa5" , 
-        //     publicKey:"MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC0vo1N4FgMN1M71kr/biv0TjrBketUQDGXhoM0LMulQuRm3z02DrDGdmPPTYAqzyz5W91bQfSU2h9tymaqxAXqs8883/97BnEmfVzYOmMVp6x1aa7YHr5u4pYj3CoGNFd219FfiSdZwSJQgwJCY5AscxJlrqKlKsAaeSyk+xR8TwIDAQAB" , 
-        //     items: JSON.stringify(items), 
-        //     customerName: "Kyaw Kyaw", 
-        //     totalAmount: 220, 
-        //     merchantOrderId: "0909", 
-        //     merchantKey: "ri4umtp.7dMzovcIu6RCDWSIzrBH_trmNsc", 
-        //     projectName: "Tentacion", 
-        //     merchantName: "Ivan", 
-        // } 
-
-        // const NodeRSA = require("node-rsa");
-
-        // const value = JSON.stringify(data);
-
-        // /* encrypt public key */
-                                                                                                                                                                                                                                                                                                                                                                    
-        // const pubKey = "-----BEGIN PUBLIC KEY-----\n"+"MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCFD4IL1suUt/TsJu6zScnvsEdLPuACgBdjX82QQf8NQlFHu2v/84dztaJEyljv3TGPuEgUftpC9OEOuEG29z7z1uOw7c9T/luRhgRrkH7AwOj4U1+eK3T1R+8LVYATtPCkqAAiomkTU+aC5Y2vfMInZMgjX0DdKMctUur8tQtvkwIDAQAB"
-        
-        // "-----END PUBLIC KEY-----";
-        // const seckey = "a5b1b8eb833621fd6ca09e5d4ff890e4";
-        // const publicKey = new NodeRSA();
-        // publicKey.importKey(pubKey, "pkcs8-public");
-        // publicKey.setOptions({ encryptionScheme: "pkcs1" });
-        // const encryptedPayload = publicKey.encrypt(value, "base64");
-        // const HashValue = HmacSHA256(value, seckey).toString();
-        // setTimeout(() => {
-        
-        // window.location = "https://prebuilt-revamp-staging.dinger.asia/"+"?payload="+encodeURIComponent(encryptedPayload)+"&hashValue="+HashValue;
-            
-        // }, 2000);
-
+        // create items in array format
         const items = [
-            
             {
-                name: "Nike Airforce 1",
-                amount: 350,
+                name: "DiorAct Sandal",
+                amount: 250,
                 quantity: 1
             },   
         
             {
-                name: "Nike Elite Mid Basketball Socks",
-                amount: 150,
+                name: "Aime Leon Dore",
+                amount: 250,
                 quantity: 1
             }
         ]
 
-        const data = {     
-            clientId:"b48a38a8-174e-3b35-819d-3b9db42c6288" , 
-            publicKey:"MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCSK/YWss44mD4mHmR98Watu/ZINAgmOuaiMYYeNnBHDfyYn1xwD35XscNXRMeo7HNtCFAMB9nn5kcB/ieu7bGoywnAwtQBdfYywYVOZVwvBWW+Um3kOn2qkbXrYtHMiU7CUIXjdV21immdRp6tPeidlhQuErOodZ2tw/upHMmEcQIDAQAB" , 
+        // create a data payload
+        const data = { 
+            // stringified items and merchant side info
             items: JSON.stringify(items), 
-            customerName: "Kyaw Kyaw", 
+            customerName: fname, 
             totalAmount: 500, 
-            merchantOrderId: "0909", 
-            merchantKey: "5l961te.Mtopaz53b6fxVckJzFEikdUTQVM", 
-            projectName: "culturex_staging  ", 
-            merchantName: "Ivan", 
+            merchantOrderId: "0009", 
+            // API information from Dinger Dashboard
+            clientId:"511c5b85-f1c0-3c37-9008-53f0090b8094", 
+            publicKey:"MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC/GC6o+cBaACNR6ic3/BUmjwhAzdZC3sOeyiDATPs9nAshAwzwXHFq1QWvlVsjFEz8Ows96IXk2XAKC4tT/wCB8MVhIK9oDh78gFHCyC2CGzrl1HPSbHWFio5l8EJF0RaEaDSg02cwWpCbttOrCA2PAADXxWIoFvU6A5ZipKvz9wIDAQAB", 
+            merchantKey: "ncv29m3.p2kGGwxnqzBa5Zy6uMMOvlJMCqc", 
+            projectName: "Dinger Demo Shop", 
+            merchantName: "Dinger2019", 
         }   
+
+        // change data to string
+        const value = JSON.stringify(data);
 
         const NodeRSA = require("node-rsa");
 
-        const value = JSON.stringify(data);
-
-        /* encrypt public key */
+        /* Key for encryption(not public key): copy and use the same key in documentation */
                                                                                                                                                                                                                                                                                                                                                                      
-        const pubKey = "-----BEGIN PUBLIC KEY-----\n"+"MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCFD4IL1suUt/TsJu6zScnvsEdLPuACgBdjX82QQf8NQlFHu2v/84dztaJEyljv3TGPuEgUftpC9OEOuEG29z7z1uOw7c9T/luRhgRrkH7AwOj4U1+eK3T1R+8LVYATtPCkqAAiomkTU+aC5Y2vfMInZMgjX0DdKMctUur8tQtvkwIDAQAB"
-        
+        const keyforEncryption = "-----BEGIN PUBLIC KEY-----\n"+"MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCFD4IL1suUt/TsJu6zScnvsEdLPuACgBdjX82QQf8NQlFHu2v/84dztaJEyljv3TGPuEgUftpC9OEOuEG29z7z1uOw7c9T/luRhgRrkH7AwOj4U1+eK3T1R+8LVYATtPCkqAAiomkTU+aC5Y2vfMInZMgjX0DdKMctUur8tQtvkwIDAQAB"
         "-----END PUBLIC KEY-----";
-        const seckey = "da9bfe46c5cbc49fb9ebd183b1320d3f";
+        // secret key in prebuilt checkout form
+        const secretkey = "30c2d00482ff775e90c28be729966f76";
         const publicKey = new NodeRSA();
-        publicKey.importKey(pubKey, "pkcs8-public");
+        publicKey.importKey(keyforEncryption, "pkcs8-public");
         publicKey.setOptions({ encryptionScheme: "pkcs1" });
         const encryptedPayload = publicKey.encrypt(value, "base64");
-        const HashValue = HmacSHA256(value, seckey).toString();
+        const HashValue = HmacSHA256(value, secretkey).toString();
         setTimeout(() => {
         
-        window.location = "https://prebuilt-revamp-staging.dinger.asia/"+"?payload="+encodeURIComponent(encryptedPayload)+"&hashValue="+HashValue;
+        window.location = "https://form.dinger.asia/"+"?payload="+encodeURIComponent(encryptedPayload)+"&hashValue="+HashValue;
             
         }, 2000);
     }
 
     return (
     <>
-     <div class="container p-12 mx-auto bg-white">
+      <div class="container py-12 bg-[#fff] lg:px-[200px] px-[30px] mx-[0px] max-w-6xl mx-[0] lg:mx-[auto] ">
             <div class="flex flex-col w-full px-0 mx-auto md:flex-row">
-                <div class="flex flex-col md:w-full">
-                    <h2 class="mb-4 font-bold md:text-xl text-heading ">Payment </h2>
-                    <div class="pt-12 md:pt-0 2xl:ps-4">
-                        <div class="flex items-center w-full py-4 text-sm font-semibold lg:py-5 lg:px-3 text-heading last:border-b-0 last:text-base last:pb-0">
-                              <img 
-                                  class="w-[50px] rounded-full mb-5"
-                                  src="https://res.cloudinary.com/crunchbase-production/image/upload/c_lpad,f_auto,q_auto:eco,dpr_1/p1ygxmq1g97fg8nutlez" 
-                              /> 
-
-                              <button 
-                                className="bg-black text-white w-[300px] py-3 -mt-5 ml-3 rounded disabled:bg-gray-500"
-                                
-                                onClick = { paynow }
-                              >
-                                Pay with Dinger
-                              </button>
-                          </div>
-                    </div>
-                    
-                    <h2 class="text-xl font-bold mt-[100px]">Order Summary
+                <div class="flex flex-col md:w-full lg:w-3/6">
+                    <h2 class="mb-4 font-bold md:text-xl text-heading border-b border-gray-300 pb-3">Billing Address
                     </h2>
+                    <div class="justify-center w-full mx-auto">
+                       
+                            <div class="space-x-0 lg:flex lg:space-x-4">
+                                <div class="w-full lg:w-1/2">
+                                    <label for="firstName" class="block mb-3 text-sm font-semibold text-gray-500">
+                                      Your Full Name
+                                      </label>
+                                    <input 
+                                        name="fname" type="text" 
+                                        class="w-full px-4 py-3 text-sm border border-gray-300 rounded lg:text-sm focus:outline-none focus:ring-1 focus:ring-blue-600" 
+                                        onChange={ (e)=>{setFname(e.target.value)} }
+                                        value={ fname }
+                                    />
+                                        
+                                </div>
+                                <div class="w-full lg:w-1/2 ">
+                                    <label for="firstName" class="block mb-3 text-sm font-semibold text-gray-500">
+                                      Phone Number
+                                    </label>
+                                    <input name="phone" type="number" 
+                                        class="w-full px-4 py-3 text-sm border border-gray-300 rounded lg:text-sm focus:outline-none focus:ring-1 focus:ring-blue-600" 
+                                        onChange={ (e)=>{setLname(e.target.value)} }
+                                        value={ phone }    
+                                    />
+                                </div>
+                            </div>
+                            <div class="space-x-0 lg:flex lg:space-x-4 mt-4">
+                                <div class="w-full lg:w-1/2">
+                                    <label for="firstName" class="block mb-3 text-sm font-semibold text-gray-500">Email (Optional)</label>
+                                    <input 
+                                        name="email" type="text" 
+                                        class="w-full px-4 py-3 text-sm border border-gray-300 rounded lg:text-sm focus:outline-none focus:ring-1 focus:ring-blue-600" 
+                                        onChange={ (e)=>{setEmail(e.target.value)} }
+                                        value={ email }   
+                                    />
+                                        
+                                </div>
+                                <div class="w-full lg:w-1/2 ">
+                                    <label for="remark" class="block mb-3 text-sm font-semibold text-gray-500">Remark (optional)</label>
+                                    <input name="remark" type="text" 
+                                        class="w-full px-4 py-3 text-sm border border-gray-300 rounded lg:text-sm focus:outline-none focus:ring-1 focus:ring-blue-600" 
+                                        onChange={ (e)=>{setPhone(e.target.value)} }
+                                        value={ add }  
+                                    />
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center mt-4 border-b border-gray-300 pb-5">
+                                <label class="flex items-center text-sm group text-heading">
+                                    <input type="checkbox"
+                                        class="w-5 h-5 border border-gray-300 rounded focus:outline-none focus:ring-1" />
+                                    <span class="ml-2">Save this information for next time</span></label>
+                            </div>
+                      
+                            <div>
+
+                              <div class="flex mt-4">
+                                <h2 class="text-xl font-bold">Payment</h2>
+                              </div>
+
+                                <div class="flex items-center w-full py-4 text-sm font-semibold lg:py-5 lg:px-3 text-heading last:border-b-0 last:text-base last:pb-0">
+                                    <img 
+                                        class="w-[50px] rounded-full mb-5"
+                                        src="https://res.cloudinary.com/crunchbase-production/image/upload/c_lpad,f_auto,q_auto:eco,dpr_1/p1ygxmq1g97fg8nutlez" 
+                                    /> 
+
+                                    <button 
+                                      className="bg-black text-white w-full py-3 -mt-5 ml-3 rounded disabled:bg-gray-500 hover:bg-[#262626]"
+                                      onClick = { paynow }
+                                      disabled  = {!fname}
+                                    >
+                                      Pay with Dinger
+                                    </button>
+                                </div>
+                            </div>
+                        
+                    </div>
+                </div>
+                <div class="flex flex-col w-full ml-0 lg:ml-12 lg:w-3/6 bg-[#f1f1f1] rounded-md p-10">
+                    <div class="pt-12 md:pt-0 2xl:ps-4">
+                        <h2 class="text-xl font-bold mt-3">Order Summary
+                        </h2>
 
                         <div class="mt-8">
                             <div class="flex flex-col space-y-4">
-                                <div class="flex space-x-4">
+
+                                <div class="flex space-x-8">
                                     <div>
-                                        <img src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/e777c881-5b62-4250-92a6-362967f54cca/air-force-1-07-shoe-Dz225W.png" alt="image"
-                                            class="w-[200px] h-[250px]" />
+                                        <img src="https://media.dior.com/couture/ecommerce/media/catalog/product/P/V/1617793847_KCQ547LAB_S900_E02_GHC.jpg?imwidth=300" alt="image"
+                                          class="w-20" />
                                     </div>
                                     <div>
-                                        <h2 class="text-xl font-bold">Nike Airforce 1</h2>
-                                        <p class="text-sm">Airforce 1 NY, US 41</p>
-                                        <span class="text-600 font-bold">Price:</span> 350 MMK
-                                    </div>
-                                    <div>
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none"
-                                            viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M6 18L18 6M6 6l12 12" />
-                                        </svg>
+                                        <h2 class="text-xl font-bold">DiorAct Sandal</h2>
+                                        <p class="text-sm">DIOR | Sandal</p>
+                                        <span class="text-red-600">Price</span> 250.00 MMK
                                     </div>
                                 </div>
-                                <div class="flex space-x-4">
+
+                                <div class="flex space-x-8">
                                     <div>
-                                        <img src="https://static.nike.com/a/images/t_PDP_1280_v1/f_auto,q_auto:eco/g587s3hjx0emmgxu0yoq/elite-mid-basketball-socks-m7MvRc.png" alt="image"
-                                            class="w-[200px]" />
+                                        <img src="https://nb.scene7.com/is/image/NB/bb650ra1_nb_02_i?$dw_detail_main_lg$&bgc=f1f1f1&layer=1&bgcolor=f1f1f1&blendMode=mult&scale=10&wid=1600&hei=1600" alt="image"
+                                            class="w-20" />
                                     </div>
                                     <div>
-                                        <h2 class="text-xl font-bold">Nike Elite Mid Basketball Socks</h2>
-                                        <p class="text-sm">Basketball Socks 4 pairs, black</p>
-                                        <span class="text-600 font-bold">Price</span> 150 MMK
-                                    </div>
-                                    <div>
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none"
-                                            viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                                        </svg>
+                                        <h2 class="text-xl font-bold">Aime Leon Dore</h2>
+                                        <p class="text-sm">New Balance | Boost</p>
+                                        <span class="text-red-600">Price</span> 250.00 MMK
                                     </div>
                                 </div>
+
+                                <div class="flex space-x-8">
+                                    <div>
+                                        <img src="https://static.nike.com/a/images/t_prod_ss/w_960,c_limit,f_auto/5970e7db-0186-4c20-840b-4c55a9c9820e/air-force-1-low-x-peaceminusone-para-noise-release-date.jpg" alt="image"
+                                            class="w-20" />
+                                    </div>
+                                    <div>
+                                        <h2 class="text-xl font-bold">Nike AF 1'07</h2>
+                                        <p class="text-sm">Nike | Shoe</p>
+                                        <span class="text-red-600">Price</span> 150.00 MMK
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
+                        
+                    </div>
                 </div>
-
-                <div class="flex flex-col md:w-full">
-                    <iframe width="560" height="315" src="https://www.youtube.com/embed/KriBQVhsgZk?controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-                
-                    <iframe width="560" className="mt-10" height="315" src="https://www.youtube.com/embed/aV1QQaZn6TY" title="YouTube video player" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-                </div>
-                
             </div>
         </div>
     </>
   )
 }
-// ri4umtp.7dMzovcIu6RCDWSIzrBH_trmNsc

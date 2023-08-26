@@ -13,5 +13,15 @@
         @apply h-7 hover:scale-125 cursor-pointer
         transition-all duration-150 ease-out;
     }
+
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+    }
+
+    input[type="number"] {
+    -moz-appearance: textfield;
+    }
 }
 

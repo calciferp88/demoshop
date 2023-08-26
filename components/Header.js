@@ -3,12 +3,9 @@ import React from 'react';
 import{
     SearchIcon,
     PlusCircleIcon,
-    UserGroupIcon,
-    HeartIcon,
-    PaperAirplaneIcon,
     MenuIcon,
     HomeIcon,
-    ShoppingCartIcon
+    ShoppingCartIcon,
 } from "@heroicons/react/outline";
 import { useSession, signIn, signOut } from "next-auth/react";
 
@@ -19,7 +16,6 @@ function Header() {
     return (
 
         <>
-
         {/* Navbar */}
         <div className="shadow-sm border-b bg-white sticky top-0 z-50">
             <div className="flex justify-between max-w-6xl mx-5 lg:mx-auto ">
@@ -27,11 +23,11 @@ function Header() {
                 {/* Left */}  
                 <div className="relative hidden lg:flex">
                     <img 
-                        src="https://images-platform.99static.com//4t0a6QScHv-yC-QedcABgxNVbeI=/1317x1923:2000x2606/fit-in/500x500/99designs-contests-attachments/63/63681/attachment_63681242"
+                        src="https://res.cloudinary.com/crunchbase-production/image/upload/c_lpad,f_auto,q_auto:eco,dpr_1/p1ygxmq1g97fg8nutlez"
                         className='mt-4 rounded-full w-12 mb-4'
                      /> 
 
-                    <p className='mt-7 ml-4 text-lg font-bold'><a href="/">CultureX</a></p>
+                    <p className='mt-7 ml-4 text-lg font-bold'><a href="/">Dinger Demo Shop</a></p>
                 </div> 
 
                 <div className="relative w-10 lg:hidden flex-shrink-0 cursor-pointer">
@@ -59,7 +55,7 @@ function Header() {
 
                 {/* Right */}
                 <div className="flex items-center justify-end space-x-4">
-                        <a href="/"><HomeIcon className="navBtn" /></a>
+                        <a href="https://dinger.asia/eng/"><HomeIcon className="navBtn" /></a>
                     <MenuIcon className="h-6 md:hidden cursor-pointer" />
 
                    <> <div className="relative navBtn">
