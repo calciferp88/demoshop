@@ -3,10 +3,9 @@ import HmacSHA256 from "crypto-js/hmac-sha256";
 
 export default function pay() {
     
-    const [ fname, setFname ] = useState('');
-    const [ lname, setLname ] = useState('');
-    const [ email, setEmail ] = useState('');
-    const [ phone, setPhone ] = useState('');
+    const [ fname, setFname ] = useState('Pyae Thuta');
+    const [ email, setEmail ] = useState('thuta@gmail.com');
+    const [ phone, setPhone ] = useState('09796029282');
     const [ add, setAdd ] = useState('');
 
     const paynow = () => {
@@ -26,18 +25,28 @@ export default function pay() {
             }
         ]
 
+        const generateUniqueId = require('generate-unique-id');
+        const orderid = generateUniqueId({
+            length: 8,
+            useLetters: false,
+            includeSymbols: ['@','#'],
+            excludeSymbols: ['0', '|', '^']
+        });
+
         // create a data payload
         const data = { 
+
             // stringified items and merchant side info
             items: JSON.stringify(items), 
             customerName: fname, 
             totalAmount: 500, 
-            merchantOrderId: "0092113", 
+            merchantOrderId: orderid, 
+
             // API information from Dinger Dashboard
             clientId:"511c5b85-f1c0-3c37-9008-53f0090b8094", 
             publicKey:"MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC/GC6o+cBaACNR6ic3/BUmjwhAzdZC3sOeyiDATPs9nAshAwzwXHFq1QWvlVsjFEz8Ows96IXk2XAKC4tT/wCB8MVhIK9oDh78gFHCyC2CGzrl1HPSbHWFio5l8EJF0RaEaDSg02cwWpCbttOrCA2PAADXxWIoFvU6A5ZipKvz9wIDAQAB", 
             merchantKey: "ncv29m3.p2kGGwxnqzBa5Zy6uMMOvlJMCqc", 
-            projectName: "Dinger Demo Shop", 
+            projectName: process.env.PROJECT_NAME, 
             merchantName: "Dinger2019", 
         }   
 
@@ -46,10 +55,10 @@ export default function pay() {
 
         const NodeRSA = require("node-rsa");
 
-        /* Key for encryption(not public key): copy and use the same key in documentation */
-                                                                                                                                                                                                                                                                                                                                                                     
+        /* Key for encryption(not public key): copy and use the same key in documentation */                                                                                                                                                                                                                                                                                                                                                                 
         const keyforEncryption = "-----BEGIN PUBLIC KEY-----\n"+"MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCFD4IL1suUt/TsJu6zScnvsEdLPuACgBdjX82QQf8NQlFHu2v/84dztaJEyljv3TGPuEgUftpC9OEOuEG29z7z1uOw7c9T/luRhgRrkH7AwOj4U1+eK3T1R+8LVYATtPCkqAAiomkTU+aC5Y2vfMInZMgjX0DdKMctUur8tQtvkwIDAQAB"
         "-----END PUBLIC KEY-----";
+
         // secret key in prebuilt checkout form
         const secretkey = "30c2d00482ff775e90c28be729966f76";
         const publicKey = new NodeRSA();

@@ -11,6 +11,7 @@
     "@tailwindcss/forms": "^0.4.0",
     "crypto-js": "^4.1.1",
     "firebase": "^9.6.3",
+    "generate-unique-id": "^2.0.3",
     "next": "latest",
     "next-auth": "4.0.0-beta.7",
     "node-rsa": "^1.1.1",
