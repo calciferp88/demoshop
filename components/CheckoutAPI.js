@@ -2,75 +2,47 @@ import React, {useState} from 'react';
 import HmacSHA256 from "crypto-js/hmac-sha256";
 
 export default function pay() {
-    
     const [ fname, setFname ] = useState('');
     const [ lname, setLname ] = useState('');
     const [ email, setEmail ] = useState('');
     const [ phone, setPhone ] = useState('');
     const [ add, setAdd ] = useState('');
+    const [ payload, setPayload ] = useState('');
 
     const paynow = () => {
-
-        // create items in array format
-        const items = [
-            {
-                name: "DiorAct Sandal",
-                amount: 250,
-                quantity: 1
-            },   
-        
-            {
-                name: "Aime Leon Dore",
-                amount: 250,
-                quantity: 1
-            }
-        ]
-
-        // create a data payload
-        const data = { 
-            // stringified items and merchant side info
-            items: JSON.stringify(items), 
-            customerName: fname, 
-            totalAmount: 500, 
-            merchantOrderId: "0092113", 
-            // API information from Dinger Dashboard
-            clientId:"511c5b85-f1c0-3c37-9008-53f0090b8094", 
-            publicKey:"MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC/GC6o+cBaACNR6ic3/BUmjwhAzdZC3sOeyiDATPs9nAshAwzwXHFq1QWvlVsjFEz8Ows96IXk2XAKC4tT/wCB8MVhIK9oDh78gFHCyC2CGzrl1HPSbHWFio5l8EJF0RaEaDSg02cwWpCbttOrCA2PAADXxWIoFvU6A5ZipKvz9wIDAQAB", 
-            merchantKey: "ncv29m3.p2kGGwxnqzBa5Zy6uMMOvlJMCqc", 
-            projectName: "Dinger Demo Shop", 
-            merchantName: "Dinger2019", 
-        }   
-
-        // change data to string
-        const value = JSON.stringify(data);
-
         const NodeRSA = require("node-rsa");
+        const publicKey2 = "-----BEGIN PUBLIC KEY-----\n"+
+        "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCkdUskgMUlIrH5iTlhq/th6yE8xis5Oe4juc4mXIXe9gPG/gZ/nYmswi4G2F41Dp0SLGdL87mmMaygkB+HGWsie24FMdD14x7ILihhmpKdRMnwo60SFry+r+QBCeGM/vaz3GQ5eNl2W68bq9PZPjkUZq5CA6zh3rFK9fAO6+rQ/wIDAQAB\n"+
+         "-----END PUBLIC KEY-----";
 
-        /* Key for encryption(not public key): copy and use the same key in documentation */
-                                                                                                                                                                                                                                                                                                                                                                     
-        const keyforEncryption = "-----BEGIN PUBLIC KEY-----\n"+"MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCFD4IL1suUt/TsJu6zScnvsEdLPuACgBdjX82QQf8NQlFHu2v/84dztaJEyljv3TGPuEgUftpC9OEOuEG29z7z1uOw7c9T/luRhgRrkH7AwOj4U1+eK3T1R+8LVYATtPCkqAAiomkTU+aC5Y2vfMInZMgjX0DdKMctUur8tQtvkwIDAQAB"
-        "-----END PUBLIC KEY-----";
-        // secret key in prebuilt checkout form
-        const secretkey = "30c2d00482ff775e90c28be729966f76";
-        const publicKey = new NodeRSA();
-        publicKey.importKey(keyforEncryption, "pkcs8-public");
-        publicKey.setOptions({ encryptionScheme: "pkcs1" });
-        const encryptedPayload = publicKey.encrypt(value, "base64");
-        const HashValue = HmacSHA256(value, secretkey).toString();
-        setTimeout(() => {
-        
-        window.location = "https://form.dinger.asia/"+"?payload="+encodeURIComponent(encryptedPayload)+"&hashValue="+HashValue;
-            
-        }, 2000);
+        const APIdata = {
+            "providerName": "AYA Pay", 
+            "methodName": "QR", 
+            "totalAmount" : 2200, 
+            "orderId":  "11111", 
+            "customerPhone" : "09787747310", 
+            "customerName" : "Thuta", 
+            "items" : "[{'name':'Mac','amount':'1100','quantity':'2'}]" 
+         }
+
+        const key = new NodeRSA();
+        const APIdataString = JSON.stringify(APIdata);
+        key.importKey(publicKey2, "pkcs8-public");
+        key.setOptions({ encryptionScheme: "pkcs1" });
+        const encrypteDataWithRsa = key.encrypt(APIdataString, "base64");
+        setPayload(encrypteDataWithRsa);
 
     }
 
     return (
+
+        
     <>
+
       <div class="container py-12 bg-[#fff] lg:px-[200px] px-[30px] mx-[0px] max-w-6xl mx-[0] lg:mx-[auto]">
             <div class="flex flex-col w-full px-0 mx-auto md:flex-row">
                 <div class="flex flex-col md:w-full lg:w-3/6">
-                    <h2 class="mb-4 font-bold md:text-xl text-heading border-b border-gray-300 pb-3">Billing Address
+                    <h2 class="mb-4 font-bold md:text-xl text-heading border-b border-gray-300 pb-3">Direct Integration
                     </h2>
                     <div class="justify-center w-full mx-auto">
                        
@@ -119,11 +91,16 @@ export default function pay() {
                                 </div>
                             </div>
                             
-                            <div class="flex items-center mt-4 border-b border-gray-300 pb-5">
-                                <label class="flex items-center text-sm group text-heading">
-                                    <input type="checkbox"
-                                        class="w-5 h-5 border border-gray-300 rounded focus:outline-none focus:ring-1" />
-                                    <span class="ml-2">Save this information for next time</span></label>
+                            <div class="space-x-0 lg:flex lg:space-x-4 mt-4">
+                                <div class="w-full lg:w-2/2">
+                                    <label for="firstName" class="block mb-3 text-sm font-semibold text-gray-500">Encrypted Data</label>
+                                    <input 
+                                        name="email" type="text" disabled 
+                                        class="w-full px-4 py-3 text-sm border border-gray-300 rounded lg:text-sm focus:outline-none focus:ring-1 focus:ring-blue-600" 
+                                        value={ payload }   
+                                    />
+                                        
+                                </div>
                             </div>
                       
                             <div>

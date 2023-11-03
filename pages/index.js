@@ -20,6 +20,14 @@ export default function Home() {
 
           {/* Feed */}
           <Checkout className=""/>
+
+          <div>
+            <p className='container bg-[#fff] lg:px-[190px] px-[20px] mx-[0px] max-w-6xl mx-[0] lg:mx-[auto] text-center'>
+              **This is sample checkout form integrated with <a href="https://dinger.asia/" className='bold font-bold	text-[#edb826]'>DINGER</a> payment gateway. 
+             <br></br> 
+             If you make scan QR or enter your wallet PIN code, payment will be deducted.**
+            </p>
+          </div>
         </div>
     </>
   )
