@@ -46,7 +46,7 @@ export default function pay() {
             clientId:"511c5b85-f1c0-3c37-9008-53f0090b8094", 
             publicKey:"MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC/GC6o+cBaACNR6ic3/BUmjwhAzdZC3sOeyiDATPs9nAshAwzwXHFq1QWvlVsjFEz8Ows96IXk2XAKC4tT/wCB8MVhIK9oDh78gFHCyC2CGzrl1HPSbHWFio5l8EJF0RaEaDSg02cwWpCbttOrCA2PAADXxWIoFvU6A5ZipKvz9wIDAQAB", 
             merchantKey: "ncv29m3.p2kGGwxnqzBa5Zy6uMMOvlJMCqc", 
-            projectName: process.env.PROJECT_NAME, 
+            projectName: "Dinger Demo Shop", 
             merchantName: "Dinger2019", 
         }   
 
