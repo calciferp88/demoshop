@@ -8,20 +8,20 @@ export default function pay() {
     const [ phone, setPhone ] = useState('09796029282');
     const [ add, setAdd ] = useState('');
 
-    const paynow = () => {
+    const paynow = () => {     
 
         // create items in array format
         const items = [
             {
                 name: "DiorAct Sandal",
-                amount: 250,
+                amount: 1291000,
                 quantity: 1
             },   
         
             {
-                name: "Aime Leon Dore",
-                amount: 250,
-                quantity: 1
+                name: "Transaction Fee",
+                amount: 24529,
+                quantity: 1   
             }
         ]
 
@@ -39,7 +39,7 @@ export default function pay() {
             // stringified items and merchant side info
             items: JSON.stringify(items), 
             customerName: fname, 
-            totalAmount: 500, 
+            totalAmount: 1315529, 
             merchantOrderId: orderid, 
 
             // API information from Dinger Dashboard
@@ -67,9 +67,7 @@ export default function pay() {
         const encryptedPayload = publicKey.encrypt(value, "base64");
         const HashValue = HmacSHA256(value, secretkey).toString();
         setTimeout(() => {
-        
-        window.location = "https://prebuilt.dinger.asia/"+"?payload="+encodeURIComponent(encryptedPayload)+"&hashValue="+HashValue;
-            
+        window.location = "https://prebuilt-revamp-staging.dinger.asia/"+"?payload="+encodeURIComponent(encryptedPayload)+"&hashValue="+HashValue;
         }, 2000);
 
     }
@@ -87,7 +85,7 @@ export default function pay() {
                                 <div class="w-full lg:w-1/2">
                                     <label for="firstName" class="block mb-3 text-sm font-semibold text-gray-500">
                                       Your Full Name
-                                      </label>
+                                      </label>    
                                     <input 
                                         name="fname" type="text" 
                                         class="w-full px-4 py-3 text-sm border border-gray-300 rounded lg:text-sm focus:outline-none focus:ring-1 focus:ring-blue-600" 
@@ -96,7 +94,7 @@ export default function pay() {
                                     />
                                         
                                 </div>
-                                <div class="w-full lg:w-1/2 ">
+                                <div class="w-full lg:w-1/  2 ">
                                     <label for="firstName" class="block mb-3 text-sm font-semibold text-gray-500">
                                       Phone Number
                                     </label>
@@ -144,7 +142,7 @@ export default function pay() {
                                 <div class="flex items-center w-full py-4 text-sm font-semibold lg:py-5 lg:px-3 text-heading last:border-b-0 last:text-base last:pb-0">
                                     <img 
                                         class="w-[50px] rounded-full mb-5"
-                                        src="https://res.cloudinary.com/crunchbase-production/image/upload/c_lpad,f_auto,q_auto:eco,dpr_1/p1ygxmq1g97fg8nutlez" 
+                                        src="https://res.cloudinary.com/crunchbase-production/image/upl oad/c_lpad,f_auto,q_auto:eco,dpr_1/p1ygxmq1g97fg8nutlez" 
                                     /> 
 
                                     <button 

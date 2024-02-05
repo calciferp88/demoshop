@@ -11,19 +11,23 @@ export default function pay() {
 
     const paynow = () => {
         const NodeRSA = require("node-rsa");
-        const publicKey2 = "-----BEGIN PUBLIC KEY-----\n"+
-        "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCkdUskgMUlIrH5iTlhq/th6yE8xis5Oe4juc4mXIXe9gPG/gZ/nYmswi4G2F41Dp0SLGdL87mmMaygkB+HGWsie24FMdD14x7ILihhmpKdRMnwo60SFry+r+QBCeGM/vaz3GQ5eNl2W68bq9PZPjkUZq5CA6zh3rFK9fAO6+rQ/wIDAQAB\n"+
-         "-----END PUBLIC KEY-----";
+        const publicKey2 = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC/GC6o+cBaACNR6ic3/BUmjwhAzdZC3sOeyiDATPs9nAshAwzwXHFq1QWvlVsjFEz8Ows96IXk2XAKC4tT/wCB8MVhIK9oDh78gFHCyC2CGzrl1HPSbHWFio5l8EJF0RaEaDSg02cwWpCbttOrCA2PAADXxWIoFvU6A5ZipKvz9wIDAQAB";
+        
+        const generateUniqueId = require('generate-unique-id');
+        const orderid = generateUniqueId({
+            length: 8,  
+            useLetters: false,
+            includeSymbols: [],
+            excludeSymbols: ['0', '|', '^']
+        });
 
-        const APIdata = {
-            "providerName": "AYA Pay", 
-            "methodName": "QR", 
-            "totalAmount" : 2200, 
-            "orderId":  "11111", 
-            "customerPhone" : "09787747310", 
-            "customerName" : "Thuta", 
-            "items" : "[{'name':'Mac','amount':'1100','quantity':'2'}]" 
-         }
+        const APIdata = {"totalAmount":1000,
+        "customerPhone":"09450699900",
+        "orderId":orderid,
+        "methodName":"OTP",
+        "items":"[{\"amount\":\"1000\",\"quantity\":\"1\",\"name\":\"Dinger University Donation\"}]",
+        "providerName":"OK$",
+        "customerName":"Min Thu Kyaw"}
 
         const key = new NodeRSA();
         const APIdataString = JSON.stringify(APIdata);
@@ -36,7 +40,6 @@ export default function pay() {
 
     return (
 
-        
     <>
 
       <div class="container py-12 bg-[#fff] lg:px-[200px] px-[30px] mx-[0px] max-w-6xl mx-[0] lg:mx-[auto]">
@@ -62,15 +65,16 @@ export default function pay() {
                                 <div class="w-full lg:w-1/2 ">
                                     <label for="firstName" class="block mb-3 text-sm font-semibold text-gray-500">
                                       Phone Number
-                                    </label>
+                                    </label> 
                                     <input name="phone" type="number" 
                                         class="w-full px-4 py-3 text-sm border border-gray-300 rounded lg:text-sm focus:outline-none focus:ring-1 focus:ring-blue-600" 
                                         onChange={ (e)=>{setLname(e.target.value)} }
                                         value={ phone }    
                                     />
-                                </div>
+                                </div> 
                             </div>
-                            <div class="space-x-0 lg:flex lg:space-x-4 mt-4">
+
+                            <div class="space-x-0 lg:flex lg:space-x-4 mt-4">  
                                 <div class="w-full lg:w-1/2">
                                     <label for="firstName" class="block mb-3 text-sm font-semibold text-gray-500">Email (Optional)</label>
                                     <input 
@@ -86,7 +90,7 @@ export default function pay() {
                                     <input name="remark" type="text" 
                                         class="w-full px-4 py-3 text-sm border border-gray-300 rounded lg:text-sm focus:outline-none focus:ring-1 focus:ring-blue-600" 
                                         onChange={ (e)=>{setPhone(e.target.value)} }
-                                        value={ add }  
+                                        valwue={ add }  
                                     />
                                 </div>
                             </div>
@@ -103,18 +107,18 @@ export default function pay() {
                                 </div>
                             </div>
                       
-                            <div>
+                            <div> 
 
                               <div class="flex mt-4">
                                 <h2 class="text-xl font-bold">Payment</h2>
                               </div>
 
-                                <div class="flex items-center w-full py-4 text-sm font-semibold lg:py-5 lg:px-3 text-heading last:border-b-0 last:text-base last:pb-0">
+                               <div class="flex items-center w-full py-4 text-sm font-semibold lg:py-5 lg:px-3 text-heading last:border-b-0 last:text-base last:pb-0">
                                     <img 
                                         class="w-[50px] rounded-full mb-5"
-                                        src="https://res.cloudinary.com/crunchbase-production/image/upload/c_lpad,f_auto,q_auto:eco,dpr_1/p1ygxmq1g97fg8nutlez" 
+                                        src="https://api-fe.dinger.asia/admin/api/image/15b0cdc8-252e-43ee-863d-a58052482c2a?time=155354&date=20240129&timezone=Asia/Yangon&clientVersionNo=1.0&channel=WEB&accessToken=f2f4028f-630c-4ff1-9be8-39efad1b5f87" 
                                     /> 
-
+  
                                     <button 
                                       className="bg-black text-white w-full py-3 -mt-5 ml-3 rounded disabled:bg-gray-500 hover:bg-[#262626]"
                                       onClick = { paynow }
